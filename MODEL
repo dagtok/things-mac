@@ -1,0 +1,54 @@
+task
++ name
++ notes
++ id_category [today | next | schedduled | some day | projects ]
++ due_date
++ next_update[date]
++ creation_date
+
+category
++ id
++ name
+
+task_has_tags
++ tag_id
++ task_id
+
+task_has_area
++ task_id
++ area_id
+
+area_has_tags
++ area_id
++ tag_id
+
+area
++ id
++ name
+
+trash
++ task_id
+
+tags
++ id
++ description
+
+project
++ id
++ name
++ due_date
++ notes
+
+project_has_tasks
++ task_id
++ project_id
+
+project_has_area
++ area_id
++ project_id
+
+project_has_tags
++ tag_id
++ project_id
+
+*********

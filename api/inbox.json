@@ -1,0 +1,94 @@
+[
+    {
+        "name": "Tarea de ejemplo",
+        "notes": "Notas de ejemplo",
+        "category": "today",
+        "taskTags": [
+            {
+                "id": 1,
+                "name": "ESCOM"
+            },
+            {
+                "id": 2,
+                "name": "ESIA"
+            }   
+        ],
+        "area": "School",
+        "project": "ESCOM",
+        "due_date": "04/10/2015",
+        "next_update": null,
+        "creation_date": "04/08/2015",
+        "is_active": true,
+        "is_in_edition": false,
+        "is_done": true
+    },
+    {
+        "name": "Tarea de ejemplo 2",
+        "notes": "Notas de ejemplo 2",
+        "category": "today",
+        "taskTags": [
+            {
+                "id": 1,
+                "name": "ESCOM"
+            },
+            {
+                "id": 3,
+                "name": "IPN"
+            }   
+        ],
+        "area": "School",
+        "project": "ESCOM",
+        "due_date": "04/08/2015",
+        "next_update": "04/08/2015",
+        "creation_date": "04/08/2015",
+        "is_active": true,
+        "is_in_edition": false,
+        "is_done": false
+    },
+    {
+        "name": "Tarea de ejemplo 3",
+        "notes": "Notas de ejemplo 3",
+        "category": "today",
+        "taskTags": [
+            {
+                "id": 1,
+                "name": "ESCOM"
+            },
+            {
+                "id": 3,
+                "name": "Opera"
+            }   
+        ],
+        "area": "School",
+        "project": "ESCOM",
+        "due_date": "04/01/2015",
+        "next_update": "04/08/2015",
+        "creation_date": "04/08/2015",
+        "is_active": true,
+        "is_in_edition": false,
+        "is_done": false
+    },
+    {
+        "name": "Tarea de ejemplo 4",
+        "notes": "Notas de ejemplo 4",
+        "category": "today",
+        "taskTags": [
+            {
+                "id": 1,
+                "name": "ESCOM"
+            },
+            {
+                "id": 3,
+                "name": "Opera"
+            }   
+        ],
+        "area": "School",
+        "project": "ESCOM",
+        "due_date": null,
+        "next_update": "04/08/2015",
+        "creation_date": "04/08/2015",
+        "is_active": true,
+        "is_in_edition": false,
+        "is_done": false
+    }
+]

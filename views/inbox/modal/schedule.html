@@ -1,0 +1,63 @@
+<!-- Modal -->
+<div class="modal fade" id="modalSchedule" tabindex="-1" role="dialog" aria-labelledby="modalSchedule" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        
+        <div class="row">
+          <div class="col-md-12">
+            Schedule
+          </div>
+          <div class="col-md-12">
+            Revisar
+            <input type="text" size="2">
+            <select>
+              <option>days</option>
+              <option>weeks</option>
+              <option>months</option>
+              <option>years</option>
+            </select>
+            <input type="date">
+          </div>
+          <div class="col-md-12">
+            Las copias se crean 
+            <select>
+              <option>dailys</option>
+              <option>weekly</option>
+              <option>monthly</option>
+              <option>yearly</option>
+            </select>
+            Every 
+            <input type="text" name="every"/>
+            {{interval}} on
+            <select>
+              <option>dailys</option>
+              <option>weekly</option>
+              <option>monthly</option>
+              <option>yearly</option>
+            </select>
+            Next <input type="date" name="nex_update"/>
+            Ends on
+            <select>
+              <option>Never</option>
+              <option>After</option>
+              <option>On</option>
+            </select>
+            <input type="text" name="after_expire_period"/>
+            <input type="date" name="expire_date"/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="saveNewTask()">Save Task</button>
+      </div>
+    </div>
+  </div>
+</div>

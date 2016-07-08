@@ -1,0 +1,242 @@
+<div class="row">
+	<div class="col-md-12 general-tasks-lists">
+		<ul>
+			<li>
+				<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+			</li>
+			<li ng-repeat="filterTag in filterTags">
+				<button style="background-color:transparent;border:none" ng-click="filterTasksByTag(filterTag)">
+					{{filterTag.name}}
+				</button>
+				<button style="background-color:transparent;border:none" ng-click="deleteTag(filterTag.name)">X</button>
+			</li>
+		</ul>		
+	</div>
+</div>
+
+<div class="row"  style="padding-top:35px">
+    <div class="col-md-12">
+        <p class="daily-report-title text-">
+        	DAILY REPORT
+        	<i class="glyphicon glyphicon-star"></i> 
+			<i class="glyphicon glyphicon-share-alt"></i>
+        </p>
+		<ul class="daily-report">
+			<li>
+				<i class="glyphicon glyphicon-star"></i> 
+				<i class="glyphicon glyphicon-share-alt"></i> Informe diario
+			</li>
+			<li>
+				<i class="glyphicon glyphicon-star"></i> 
+				<i class="glyphicon glyphicon-share-alt"></i> Informe diario
+			</li>
+		</ul>	
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<ul class="task-list">
+			<li id="new-task" ng-show="newTaskFormIsVisible">
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table" border="0">
+							<tr>
+								<td class="task-status">
+									<input type="checkbox" name="isDone" />
+								</td>
+								<td>
+									<input type="text" class="form-control" 
+									name="new-task-name"
+									placeholder="New Task Name"
+									ng-model="tempTask.name"
+									ui-keypress="{13:'saveNewTask()'}" />
+									
+									<button class="glyphicon glyphicon-fullscreen" aria-hidden="true" type="button" data-toggle="modal" data-target="#modalNewTaskForm">
+										&nbsp;
+									</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-md-12 tag-detail">
+						<span class="glyphicon glyphicon-tag" aria-hidden="true">&nbsp;&nbsp;Tags</span>
+						<ul class="tags">
+							<li ng-repeat="tag in tempTask.taskTags">{{tag.name}}</li>
+							<li>
+								<input type="text" name="tag" list="taglist" 
+								placeholder="Etiquetas" 
+								ng-model="tempTag"
+								ui-keypress="{13:'addNewTag(tempTag)'}" />
+								<datalist id="taglist">
+									<option value="Internet Explorer">
+									<option value="Firefox">
+									<option value="Chrome">
+									<option value="Opera">
+									<option value="Safari">
+								</datalist>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-12">
+						<span class="glyphicon glyphicon-file" aria-hidden="true">&nbsp;&nbsp;Notes</span>
+						<textarea ng-model="tempTask.notes" class="form-control notes-textarea"></textarea>
+					</div>
+					<div class="col-md-12 due-date-container">
+						<span class="glyphicon glyphicon-calendar" aria-hidden="true">&nbsp;Due&nbsp;Date</span>
+						<input type="text" datepicker-popup="yyyy-MM-dd" ng-click="openNewTask($event)" ng-model="tempTask.due_date" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+						
+						<span class="glyphicon glyphicon-save" ng-click="saveNewTask()" aria-hidden="true">&nbsp;</span>						
+					</div>
+    			</div>
+    		</li>
+    		
+    		<li ng-class="(tasks[$index].is_selected) ? 'selected-task' : ((tasks[$index].is_done) ? 'is-done' : null)"
+	    		ng-click="markTaskAsSelected($index)" 
+	    		ng-dblclick="openUpdatePanel($event,$index)" 
+	    		ng-repeat="task in tasks | filter: filterInputText">
+
+    			<div class="row">
+    				<div class="col-md-12">
+    					<table class="task-details table" border="0">
+							<tr>
+								<td class="task-status">
+									
+									<input type="checkbox" 
+									name="isDone" 
+									ng-click="updateTaskStatus($index,task.is_done)"
+									ng-disabled="tasks[$index].is_done"
+									ng-model="task.is_done" 
+									ng-checked="task.is_done" />
+									
+								</td>
+								<td>
+									<input type="text" class="form-control" 
+									name="new-task-name" 
+									placeholder="Tags" 
+									ng-model="task.name"
+									ng-blur="updateTaskName($index, task.name)" />
+								</td>
+								<td class="tags-container" align="right" ng-hide="task.is_in_edition">
+									<ul class="tags">
+		    							<li ng-repeat="tag in task.taskTags">{{tag.name}}</li>
+		    						</ul>			
+								</td>
+								<td class="remaining-time" align="center" ng-hide="task.is_in_edition || task.due_date == null">
+									<span ng-if="task.due_date_label > -1">{{task.due_date_label}} dias restantes</span>
+									<span ng-if="task.due_date_label < -1">Vencio hace {{task.due_date_label*-1}} dias</span>
+									<span ng-if="task.due_date_label == -1">due today</span>
+								</td>
+							</tr>
+						</table>	
+    				</div>
+    				<div ng-show="task.is_in_edition">
+	    				<div class="col-md-12">
+							<span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+							Tags
+							<ul class="tags">
+								<li ng-repeat="tag in task.taskTags">{{tag.name}}</li>
+								<li>
+									<input type="text" name="tag" list="taglist" 
+									placeholder="Tags"
+									ng-model="tempTag"
+									ui-keypress="{13:'insertOnExistingTags($index, tempTag)'}"
+									/>
+									<datalist id="taglist">
+										<option value="Internet Explorer">
+										<option value="Firefox">
+										<option value="Chrome">
+										<option value="Opera">
+										<option value="Safari">
+									</datalist>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-12">
+							<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+							Notes
+							<textarea ng-model="task.notes" class="form-control notes-textarea"></textarea>
+						</div>
+						<div class="col-md-12">
+							Due Date
+							<p class="input-group">
+				              <input type="text" class="form-control" 
+				              datepicker-popup="yyyy-MM-dd" 
+				              name="dt{{$index}}"
+				              ng-model="tasks[$index].due_date" 
+				              ng-click="openDueDateDrop($event, $index)" 
+				              is-open="datepickers[$index].isopen" 
+				              datepicker-options="dateOptions" 
+				              ng-required="true" 
+				              close-text="Close" />
+				              <!--<span class="input-group-btn">--> 
+				              <!--  <button type="button" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>-->
+				              <!--</span>-->
+				            </p>
+						</div>
+	    			</div>
+    			</div>
+			</li>
+		</ul>
+		<pre>
+			{{selected_task_index | json }}
+		</pre>
+	</div>
+</div>
+
+<!-- MODAL WINDOWS -->
+<div ng-include="'views/inbox/modal/newtask.html'"></div> <!-- Show form for  new task registration -->
+<div ng-include="'views/inbox/modal/listtag.html'"></div><!-- Show a form to schedule a task -->
+<div ng-include="'views/inbox/modal/schedule.html'"></div><!-- Show a form to schedule a task -->
+
+<!--FOOTER TOOLBAR-->
+<div class="row">
+	<div class="col-md-12 footer-toolbar">
+		<ul>
+			<li ng-click="newTaskFormIsVisible = ((newTaskFormIsVisible) ? false : true)">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				<span class="legend">New</span>
+			</li>
+			<li ng-show="(selected_task_index > 0)">
+				<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+				<span class="legend">Assign</span>
+			</li>
+			<li>
+				<span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+				<span class="legend">Today</span>
+			</li>
+			<li>
+				<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+				<button class="legend" 
+				aria-hidden="true" 
+				type="button" 
+				data-toggle="modal" 
+				data-target="#modalSchedule">
+					Schedule
+				</button>
+			</li>
+			<li>
+				<span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+				<span class="legend">Archive as done</span>
+			</li>
+			<li>
+				<span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+				<span class="legend">Mostrar en lista</span>
+			</li>
+			<li>
+				<span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+				
+				<button class="legend" 
+				aria-hidden="true" 
+				type="button" 
+				data-toggle="modal" 
+				data-target="#modalListTag">
+					Tags
+				</button>
+			</li>
+			<li>
+				<input type="text" name="buscar" ng-model="filterInputText" placeholder="Search" />
+			</li>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,68 @@
+<!-- Modal -->
+<div class="modal fade" id="modalNewTaskForm" tabindex="-1" role="dialog" aria-labelledby="modalNewTaskForm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        
+        <div class="row">
+					<div class="col-md-12">
+						<table class="table" border="0">
+							<tr>
+								<td class="task-status">
+									<input type="checkbox" name="isDone" />
+								</td>
+								<td>
+									<input type="text" class="form-control" 
+									name="new-task-name"
+									placeholder="New Task Name"
+									ng-model="tempTask.name" />
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-md-12 tag-detail">
+						<span class="glyphicon glyphicon-tag" aria-hidden="true">&nbsp;&nbsp;Tags</span>
+						<ul class="tags">
+							<li ng-repeat="tag in tempTask.taskTags">{{tag.name}}</li>
+							<li>
+								<input type="text" name="tag" list="taglist" 
+								placeholder="Etiquetas" 
+								ng-model="tempTag"
+								ui-keypress="{13:'addNewTag(tempTag)'}" />
+								<datalist id="taglist">
+									<option value="Internet Explorer">
+									<option value="Firefox">
+									<option value="Chrome">
+									<option value="Opera">
+									<option value="Safari">
+								</datalist>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-12">
+						<span class="glyphicon glyphicon-file" aria-hidden="true">&nbsp;&nbsp;Notes</span>
+						<textarea ng-model="tempTask.notes" class="form-control notes-textarea"></textarea>
+					</div>
+					<div class="col-md-12 due-date-container">
+						<span class="glyphicon glyphicon-calendar" aria-hidden="true">&nbsp;Due&nbsp;Date</span>
+						<input type="text" datepicker-popup="yyyy-MM-dd" ng-click="openNewTask($event)" ng-model="tempTask.due_date" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+					</div>
+    		</div>
+    		<!--<pre>-->
+    		<!--  {{tempTag | json}}-->
+    		<!--  {{tempTask | json}}-->
+    		<!--</pre>-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="saveNewTask()">Save Task</button>
+      </div>
+    </div>
+  </div>
+</div>
